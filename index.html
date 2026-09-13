@@ -8,175 +8,180 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emerald-600 selection:text-white">
 
-    <!-- Top Header / Navigation -->
-    <header class="bg-slate-900/95 backdrop-blur-md text-white shadow-md sticky top-0 z-50 border-b border-slate-800">
-        <div class="container mx-auto px-4 py-3.5 flex justify-between items-center">
-            <!-- Logo & Brand -->
+    <!-- Top Header / Navigation (Matching Professional Green Theme) -->
+    <header class="bg-[#1b4d3e] text-white shadow-md sticky top-0 z-50 border-b border-[#14382d]">
+        <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+            
+            <!-- Logo & Brand Name -->
             <div class="flex items-center space-x-3">
-                <img src="FB_IMG_1789273598219.jpg" alt="TRY Logo" class="w-10 h-10 rounded-xl object-cover border border-slate-700 shadow-sm">
-                <div>
-                    <span class="text-lg font-extrabold tracking-tight block leading-none text-white">TRY</span>
-                    <span class="text-[10px] text-blue-400 font-semibold uppercase tracking-wider">The Rohingya Youth</span>
+                <img src="FB_IMG_1789273598219.jpg" alt="TRY Logo" class="w-11 h-11 rounded-full object-cover border-2 border-white/30 shadow-sm">
+                <div class="text-center md:text-left">
+                    <h1 class="text-base font-extrabold tracking-tight leading-tight text-white">The Rohingya Youth (TRY)</h1>
+                    <p class="text-[10px] text-emerald-200 font-medium tracking-wide">Amplifying Rohingya voices and fostering a peaceful future</p>
                 </div>
             </div>
 
-            <!-- Navigation Buttons (Desktop & Mobile Friendly) -->
-            <nav class="flex items-center space-x-1 md:space-x-2">
-                <a href="#about" class="px-3 py-1.5 text-xs md:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition">About Us</a>
-                <a href="#leadership" class="px-3 py-1.5 text-xs md:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition">Leadership</a>
-                <a href="#works" class="px-3 py-1.5 text-xs md:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition">Recent Works</a>
-                <a href="#contact" class="px-3.5 py-1.5 text-xs md:text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg shadow-sm transition">Contact Us</a>
+            <!-- Navigation Buttons (Fixed & Mobile Optimized) -->
+            <nav class="flex flex-wrap justify-center items-center gap-1.5 md:gap-2">
+                <a href="#about" class="px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-full transition border border-white/15">About Us</a>
+                <a href="#activities" class="px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-full transition border border-white/15">Activities</a>
+                <a href="#leadership" class="px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-full transition border border-white/15">Leadership</a>
+                <a href="#works" class="px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-full transition border border-white/15">Recent Works</a>
+                <a href="#contact" class="px-3.5 py-1.5 text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white rounded-full transition shadow-sm">Contact Us</a>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 text-white py-24 text-center relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <section class="bg-gradient-to-br from-[#1b4d3e] via-[#14382d] to-[#0f2c23] text-white py-20 text-center relative overflow-hidden">
         <div class="container mx-auto px-4 relative z-10 max-w-4xl">
-            <span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest border border-blue-500/30 shadow-inner">Founded in 2025</span>
-            <h1 class="text-4xl md:text-6xl font-extrabold mt-6 mb-6 tracking-tight leading-tight">Empowering Rohingya Youth</h1>
-            <p class="max-w-2xl mx-auto text-base md:text-lg text-slate-300 font-normal leading-relaxed">
+            <span class="bg-white/10 text-emerald-200 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest border border-white/15">Founded in 2025</span>
+            <h2 class="text-3xl md:text-5xl font-extrabold mt-5 mb-5 tracking-tight">Empowering Rohingya Youth</h2>
+            <p class="max-w-2xl mx-auto text-sm md:text-base text-slate-200 font-normal leading-relaxed">
                 Empowering Rohingya youth through education, advocacy, creativity, and community initiatives promoting their rights, dignity, and well-being.
             </p>
-            <div class="mt-10 flex flex-wrap justify-center gap-4">
-                <a href="#contact" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition transform hover:-translate-y-0.5">Get Involved</a>
-                <a href="#about" class="bg-slate-800/80 hover:bg-slate-800 text-white font-semibold px-8 py-3.5 rounded-xl backdrop-blur-md transition border border-slate-700">Learn More</a>
+            <div class="mt-8 flex justify-center gap-3">
+                <a href="#contact" class="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-7 py-3 rounded-xl shadow-md transition text-sm">Get Involved</a>
+                <a href="#about" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3 rounded-xl backdrop-blur-sm transition border border-white/15 text-sm">Learn More</a>
             </div>
         </div>
     </section>
 
     <!-- About Us Section -->
-    <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-4 max-w-4xl text-center">
-            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-6">About Us</h2>
-            <div class="w-16 h-1 bg-blue-600 mx-auto rounded-full mb-8"></div>
-            <p class="text-slate-600 text-base md:text-lg leading-relaxed font-normal">
-                The Rohingya Youth (TRY) is a dedicated community organization founded in 2025. We strive to create safe spaces, learning environments, and platforms for young Rohingya individuals to voice their aspirations, build leadership capacity, and foster peace and solidarity within the community.
-            </p>
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900">About Us</h3>
+                <div class="w-12 h-1 bg-[#1b4d3e] mx-auto rounded-full mt-2"></div>
+            </div>
+            <div class="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <p class="text-slate-700 text-sm md:text-base leading-relaxed text-center">
+                    The Rohingya Youth (TRY) is a dedicated community organization founded in 2025. We strive to create safe spaces, learning environments, and platforms for young Rohingya individuals to voice their aspirations, build leadership capacity, and foster peace and solidarity within the community.
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- Activities Section -->
-    <section id="activities" class="py-20 bg-slate-50 border-y border-slate-200/60">
+    <section id="activities" class="py-16 bg-slate-50 border-y border-slate-200">
         <div class="container mx-auto px-4 max-w-6xl">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Our Activities</h2>
-                <div class="w-16 h-1 bg-blue-600 mx-auto rounded-full mt-3 mb-3"></div>
-                <p class="text-slate-500 text-sm">Core pillars driving our community forward</p>
+            <div class="text-center mb-12">
+                <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900">Our Activities</h3>
+                <div class="w-12 h-1 bg-[#1b4d3e] mx-auto rounded-full mt-2"></div>
+                <p class="text-slate-500 text-xs md:text-sm mt-1">Core pillars driving our community forward</p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition">
-                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-sm mb-5">01</div>
-                    <h3 class="font-bold text-lg text-slate-900 mb-2">Youth Leadership & Empowerment</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">We create opportunities for Rohingya young people to develop leadership skills, confidence, and meaningful roles in their communities.</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <span class="text-xs font-bold text-[#1b4d3e] bg-emerald-50 px-2.5 py-1 rounded-lg">01</span>
+                    <h4 class="font-bold text-base text-slate-900 mt-3 mb-2">Youth Leadership & Empowerment</h4>
+                    <p class="text-slate-600 text-xs md:text-sm leading-relaxed">We create opportunities for Rohingya young people to develop leadership skills, confidence, and meaningful roles in their communities.</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition">
-                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-sm mb-5">02</div>
-                    <h3 class="font-bold text-lg text-slate-900 mb-2">Education & Learning</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">We support learning, knowledge-sharing, and educational opportunities that help Rohingya youth develop skills for their futures.</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <span class="text-xs font-bold text-[#1b4d3e] bg-emerald-50 px-2.5 py-1 rounded-lg">02</span>
+                    <h4 class="font-bold text-base text-slate-900 mt-3 mb-2">Education & Learning</h4>
+                    <p class="text-slate-600 text-xs md:text-sm leading-relaxed">We support learning, knowledge-sharing, and educational opportunities that help Rohingya youth develop skills for their futures.</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition">
-                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-sm mb-5">03</div>
-                    <h3 class="font-bold text-lg text-slate-900 mb-2">Human Rights & Advocacy</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">We raise awareness of Rohingya rights, dignity, identity, and aspirations while creating opportunities for youth advocacy.</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <span class="text-xs font-bold text-[#1b4d3e] bg-emerald-50 px-2.5 py-1 rounded-lg">03</span>
+                    <h4 class="font-bold text-base text-slate-900 mt-3 mb-2">Human Rights & Advocacy</h4>
+                    <p class="text-slate-600 text-xs md:text-sm leading-relaxed">We raise awareness of Rohingya rights, dignity, identity, and aspirations while creating opportunities for youth advocacy.</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition">
-                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-sm mb-5">04</div>
-                    <h3 class="font-bold text-lg text-slate-900 mb-2">Community Organizing</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">We bring young people together through community activities, discussions, listening spaces, and youth-led initiatives.</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <span class="text-xs font-bold text-[#1b4d3e] bg-emerald-50 px-2.5 py-1 rounded-lg">04</span>
+                    <h4 class="font-bold text-base text-slate-900 mt-3 mb-2">Community Organizing</h4>
+                    <p class="text-slate-600 text-xs md:text-sm leading-relaxed">We bring young people together through community activities, discussions, listening spaces, and youth-led initiatives.</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition">
-                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-sm mb-5">05</div>
-                    <h3 class="font-bold text-lg text-slate-900 mb-2">Gender & Inclusion</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">We create meaningful spaces for young women and underrepresented voices to participate in leadership and dialogue.</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <span class="text-xs font-bold text-[#1b4d3e] bg-emerald-50 px-2.5 py-1 rounded-lg">05</span>
+                    <h4 class="font-bold text-base text-slate-900 mt-3 mb-2">Gender & Inclusion</h4>
+                    <p class="text-slate-600 text-xs md:text-sm leading-relaxed">We create meaningful spaces for young women and underrepresented voices to participate in leadership and dialogue.</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition">
-                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-sm mb-5">06</div>
-                    <h3 class="font-bold text-lg text-slate-900 mb-2">Peacebuilding & Civic Engagement</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">We encourage youth participation in dialogue, peacebuilding, democracy, and discussions about an inclusive future.</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <span class="text-xs font-bold text-[#1b4d3e] bg-emerald-50 px-2.5 py-1 rounded-lg">06</span>
+                    <h4 class="font-bold text-base text-slate-900 mt-3 mb-2">Peacebuilding & Civic Engagement</h4>
+                    <p class="text-slate-600 text-xs md:text-sm leading-relaxed">We encourage youth participation in dialogue, peacebuilding, democracy, and discussions about an inclusive future.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Leadership Section -->
-    <section id="leadership" class="py-20 bg-white">
+    <section id="leadership" class="py-16 bg-white">
         <div class="container mx-auto px-4 max-w-4xl">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Our Leadership</h2>
-                <div class="w-16 h-1 bg-blue-600 mx-auto rounded-full mt-3 mb-3"></div>
-                <p class="text-slate-500 text-sm">Meet the dedicated leaders of our organization</p>
+            <div class="text-center mb-12">
+                <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900">Our Leadership</h3>
+                <div class="w-12 h-1 bg-[#1b4d3e] mx-auto rounded-full mt-2"></div>
+                <p class="text-slate-500 text-xs md:text-sm mt-1">Meet the dedicated leaders of our organization</p>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-6">
                 <!-- Leader 1 -->
-                <div class="bg-slate-50 rounded-2xl p-8 text-center border border-slate-200/80 shadow-sm hover:shadow-md transition">
-                    <div class="w-20 h-20 bg-blue-600 text-white rounded-full mx-auto mb-4 flex items-center justify-center font-extrabold text-xl shadow-inner">
+                <div class="bg-slate-50 rounded-2xl p-6 text-center border border-slate-200 shadow-sm">
+                    <div class="w-16 h-16 bg-[#1b4d3e] text-white rounded-full mx-auto mb-3 flex items-center justify-center font-extrabold text-lg shadow-sm">
                         SR
                     </div>
-                    <h3 class="font-bold text-xl text-slate-900">Shofiqure Rahman</h3>
-                    <p class="text-blue-600 text-xs font-bold uppercase tracking-wider mt-1.5">Founder & Executive Director</p>
-                    <p class="text-slate-500 text-xs mt-4 font-medium">📧 shofiqurerahman90@gmail.com</p>
+                    <h4 class="font-bold text-lg text-slate-900">Shofiqure Rahman</h4>
+                    <p class="text-[#1b4d3e] text-xs font-bold uppercase tracking-wider mt-1">Founder & Executive Director</p>
+                    <p class="text-slate-500 text-xs mt-3 font-medium">📧 shofiqurerahman90@gmail.com</p>
                 </div>
                 <!-- Leader 2 -->
-                <div class="bg-slate-50 rounded-2xl p-8 text-center border border-slate-200/80 shadow-sm hover:shadow-md transition">
-                    <div class="w-20 h-20 bg-blue-600 text-white rounded-full mx-auto mb-4 flex items-center justify-center font-extrabold text-xl shadow-inner">
+                <div class="bg-slate-50 rounded-2xl p-6 text-center border border-slate-200 shadow-sm">
+                    <div class="w-16 h-16 bg-[#1b4d3e] text-white rounded-full mx-auto mb-3 flex items-center justify-center font-extrabold text-lg shadow-sm">
                         AJ
                     </div>
-                    <h3 class="font-bold text-xl text-slate-900">AS Junike</h3>
-                    <p class="text-blue-600 text-xs font-bold uppercase tracking-wider mt-1.5">Deputy Director</p>
-                    <p class="text-slate-500 text-xs mt-4 font-medium">📱 WhatsApp: 01864-311183</p>
+                    <h4 class="font-bold text-lg text-slate-900">AS Junike</h4>
+                    <p class="text-[#1b4d3e] text-xs font-bold uppercase tracking-wider mt-1">Deputy Director</p>
+                    <p class="text-slate-500 text-xs mt-3 font-medium">📱 WhatsApp: 01864-311183</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Recent Works / Gallery Section -->
-    <section id="works" class="py-20 bg-slate-50 border-t border-slate-200/60">
+    <!-- Recent Works Section -->
+    <section id="works" class="py-16 bg-slate-50 border-t border-slate-200">
         <div class="container mx-auto px-4 max-w-6xl">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Recent Works & Gallery</h2>
-                <div class="w-16 h-1 bg-blue-600 mx-auto rounded-full mt-3 mb-3"></div>
-                <p class="text-slate-500 text-sm">Highlights from our latest community events and programs</p>
+            <div class="text-center mb-12">
+                <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900">Recent Works & Gallery</h3>
+                <div class="w-12 h-1 bg-[#1b4d3e] mx-auto rounded-full mt-2"></div>
+                <p class="text-slate-500 text-xs md:text-sm mt-1">Highlights from our latest community events and programs</p>
             </div>
             
-            <div id="dynamic-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Firebase dynamic programs will load here -->
+            <div id="dynamic-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Firebase dynamic posts will load here -->
             </div>
         </div>
     </section>
 
     <!-- Contact Us Section -->
-    <section id="contact" class="py-20 bg-white">
-        <div class="container mx-auto px-4 max-w-3xl text-center">
-            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Contact Us</h2>
-            <div class="w-16 h-1 bg-blue-600 mx-auto rounded-full mt-3 mb-6"></div>
-            <p class="text-slate-500 mb-10 text-sm">Get in touch with us for collaborations, inquiries, or support.</p>
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4 max-w-2xl text-center">
+            <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2">Contact Us</h3>
+            <div class="w-12 h-1 bg-[#1b4d3e] mx-auto rounded-full mb-3"></div>
+            <p class="text-slate-500 mb-8 text-xs md:text-sm">Get in touch with us for collaborations, inquiries, or support.</p>
             
-            <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 text-left space-y-6 shadow-sm">
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">✉️</div>
+            <div class="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 text-left space-y-4 shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-emerald-100 text-[#1b4d3e] rounded-xl flex items-center justify-center font-bold text-sm">✉️</div>
                     <div>
-                        <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Official Email</p>
-                        <p class="text-slate-800 font-semibold text-sm md:text-base">therohingyayouth@gmail.com</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Official Email</p>
+                        <p class="text-slate-800 font-semibold text-xs md:text-sm">therohingyayouth@gmail.com</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">📱</div>
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-emerald-100 text-[#1b4d3e] rounded-xl flex items-center justify-center font-bold text-sm">📱</div>
                     <div>
-                        <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">WhatsApp</p>
-                        <p class="text-slate-800 font-semibold text-sm md:text-base">+8801866362781</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">WhatsApp</p>
+                        <p class="text-slate-800 font-semibold text-xs md:text-sm">+8801866362781</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">🌐</div>
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-emerald-100 text-[#1b4d3e] rounded-xl flex items-center justify-center font-bold text-sm">🌐</div>
                     <div>
-                        <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Facebook Page</p>
-                        <a href="https://www.facebook.com/profile.php?id=61581461360950" target="_blank" class="text-blue-600 hover:underline font-semibold text-sm md:text-base">Visit our Facebook Page</a>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Facebook Page</p>
+                        <a href="https://www.facebook.com/profile.php?id=61581461360950" target="_blank" class="text-[#1b4d3e] hover:underline font-semibold text-xs md:text-sm">Visit our Facebook Page</a>
                     </div>
                 </div>
             </div>
@@ -184,11 +189,10 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-950 text-slate-400 py-8 text-sm border-t border-slate-800">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+    <footer class="bg-[#14382d] text-slate-300 py-6 text-xs border-t border-emerald-900">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-3 text-center">
             <p>&copy; 2026 The Rohingya Youth (TRY). All rights reserved.</p>
-            <!-- Hidden Admin Portal Link -->
-            <a href="admin.html" class="text-xs text-slate-600 hover:text-slate-400 transition">Admin Portal</a>
+            <a href="admin.html" class="text-emerald-400 hover:text-white font-medium transition">Admin Portal</a>
         </div>
     </footer>
 
@@ -214,18 +218,18 @@
             try {
                 const querySnapshot = await getDocs(collection(db, "programs"));
                 if(querySnapshot.empty) {
-                    container.innerHTML = `<p class="col-span-3 text-center text-slate-400 py-12">No recent works published yet. Add via admin panel!</p>`;
+                    container.innerHTML = `<p class="col-span-3 text-center text-slate-400 py-10 text-sm">No recent works published yet. Add via admin panel!</p>`;
                     return;
                 }
                 container.innerHTML = '';
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     container.innerHTML += `
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden hover:shadow-md transition flex flex-col">
-                            ${data.imageUrl ? `<img src="${data.imageUrl}" class="w-full h-52 object-cover">` : ''}
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h4 class="font-bold text-lg text-slate-900 mb-2">${data.title}</h4>
-                                <p class="text-slate-600 text-sm leading-relaxed">${data.description}</p>
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition flex flex-col">
+                            ${data.imageUrl ? `<img src="${data.imageUrl}" class="w-full h-48 object-cover">` : ''}
+                            <div class="p-5 flex flex-col flex-grow">
+                                <h4 class="font-bold text-base text-slate-900 mb-2">${data.title}</h4>
+                                <p class="text-slate-600 text-xs md:text-sm leading-relaxed">${data.description}</p>
                             </div>
                         </div>
                     `;
