@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - TRY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center text-blue-900">Admin Dashboard</h2>
+        
+        <!-- Add Program Form -->
+        <form id="post-form" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Program/Activity Title</label>
+                <input type="text" id="title" required class="mt-1 block w-full p-2 border rounded border-gray-300">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea id="description" rows="3" required class="mt-1 block w-full p-2 border rounded border-gray-300"></textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Image URL (Optional)</label>
+                <input type="url" id="imageUrl" placeholder="Paste image link here" class="mt-1 block w-full p-2 border rounded border-gray-300">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-bold">Publish Program</button>
+        </form>
+        <div class="mt-4 text-center">
+            <a href="index.html" class="text-sm text-blue-600 hover:underline">← Back to Website</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // আপনার ফায়ারবেস কনফিগারেশন এখানে বসাতে হবে (ধাপ ২ দেখুন)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const form = document.getElementById('post-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+
+            try {
+                await addDoc(collection(db, "programs"), {
+                    title,
+                    description,
+                    imageUrl,
+                    createdAt: new Date()
+                });
+                alert('Program published successfully!');
+                form.reset();
+            } catch (error) {
+                alert('Error adding document: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
