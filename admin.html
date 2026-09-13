@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rohingya Youth (TRY)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Header -->
+    <header class="bg-blue-900 text-white py-6 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">The Rohingya Youth (TRY)</h1>
+            <a href="admin.html" class="bg-blue-600 px-3 py-1.5 rounded text-sm hover:bg-blue-700">Admin Login</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-blue-800 text-white py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Empowering Rohingya Youth</h2>
+            <p class="max-w-2xl mx-auto text-lg text-blue-100">Founded in 2025, The Rohingya Youth empowers Rohingya youth through education, advocacy, creativity, and community initiatives promoting their rights and well-being.</p>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <main class="container mx-auto px-4 py-12">
+        <h3 class="text-2xl font-bold text-center mb-10 text-gray-900">Our Activities</h3>
+        
+        <!-- Static Activities Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white p-6 rounded-lg shadow border">
+                <h4 class="font-bold text-lg text-blue-900 mb-2">1. Youth Leadership & Empowerment</h4>
+                <p class="text-gray-600 text-sm">We create opportunities for Rohingya young people to develop leadership skills, confidence, and meaningful roles in their communities.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow border">
+                <h4 class="font-bold text-lg text-blue-900 mb-2">2. Education & Learning</h4>
+                <p class="text-gray-600 text-sm">We support learning, knowledge-sharing, and educational opportunities that help Rohingya youth develop skills for their futures.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow border">
+                <h4 class="font-bold text-lg text-blue-900 mb-2">3. Human Rights & Advocacy</h4>
+                <p class="text-gray-600 text-sm">We raise awareness of Rohingya rights, dignity, identity, and aspirations while creating opportunities for young people to participate in advocacy.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow border">
+                <h4 class="font-bold text-lg text-blue-900 mb-2">4. Community Organizing</h4>
+                <p class="text-gray-600 text-sm">We bring young people together through community activities, discussions, listening spaces, and youth-led initiatives.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow border">
+                <h4 class="font-bold text-lg text-blue-900 mb-2">5. Gender & Inclusion</h4>
+                <p class="text-gray-600 text-sm">We create meaningful spaces for young women and underrepresented voices to participate in leadership and dialogue.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow border">
+                <h4 class="font-bold text-lg text-blue-900 mb-2">6. Peacebuilding & Civic Engagement</h4>
+                <p class="text-gray-600 text-sm">We encourage youth participation in dialogue, peacebuilding, democracy, and discussions about an inclusive future.</p>
+            </div>
+        </div>
+
+        <!-- Dynamic Admin Added Programs will show here -->
+        <h3 class="text-xl font-bold mb-6 text-gray-800 border-b pb-2">Recent Programs & Updates</h3>
+        <div id="dynamic-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Firebase data will load here automatically -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center py-6 mt-12">
+        <p class="text-sm">&copy; 2026 The Rohingya Youth (TRY). All rights reserved.</p>
+        <p class="text-xs text-gray-400 mt-1">Cox's Bazar, Bangladesh</p>
+    </footer>
+
+    <!-- Firebase SDK & Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // আপনার ফায়ারবেস কনফিগারেশন এখানে বসাতে হবে (ধাপ ২ দেখুন)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function loadPosts() {
+            const container = document.getElementById('dynamic-posts');
+            try {
+                const querySnapshot = await getDocs(collection(db, "programs"));
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    container.innerHTML += `
+                        <div class="bg-white rounded-lg shadow border overflow-hidden">
+                            ${data.imageUrl ? `<img src="${data.imageUrl}" class="w-full h-48 object-cover">` : ''}
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-blue-900 mb-1">${data.title}</h4>
+                                <p class="text-gray-600 text-sm">${data.description}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (e) {
+                console.log("Error loading posts", e);
+            }
+        }
+        loadPosts();
+    </script>
+</body>
+</html>
