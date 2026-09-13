@@ -183,7 +183,6 @@
             } else {
                 postContainer.innerHTML = '';
                 posts.forEach((data) => {
-                    // Extract multiple image URLs (split by newline, comma, or fallback to single imageUrl)
                     let rawLinks = data.imageUrls || data.imageUrl || "";
                     let links = rawLinks.split(/[\n,]+/).map(l => l.trim()).filter(l => l.length > 0);
 
@@ -191,8 +190,7 @@
                     if(links.length === 1) {
                         imageHTML = `<img src="${links[0]}" class="w-full h-48 object-cover">`;
                     } else if(links.length > 1) {
-                        let gridCols = links.length === 2 ? 'grid-cols-2' : 'grid-cols-2';
-                        imageHTML = `<div class="grid ${gridCols} gap-1 p-2 bg-slate-100">`;
+                        imageHTML = `<div class="grid grid-cols-2 gap-1 p-2 bg-slate-100">`;
                         links.forEach(link => {
                             imageHTML += `<img src="${link}" class="w-full h-32 object-cover rounded-lg">`;
                         });
@@ -223,13 +221,20 @@
             } else {
                 leaderContainer.innerHTML = '';
                 leaders.forEach((data) => {
-                    const initials = data.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                    let avatarHTML = "";
+                    if(data.photo && data.photo.trim() !== "") {
+                        avatarHTML = `<img src="${data.photo}" class="w-20 h-20 rounded-full object-cover mx-auto mb-3 border-2 border-[#1b4d3e] shadow-sm">`;
+                    } else {
+                        const initials = data.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                        avatarHTML = `<div class="w-20 h-20 bg-[#1b4d3e] text-white rounded-full mx-auto mb-3 flex items-center justify-center font-extrabold text-xl shadow-sm">${initials}</div>`;
+                    }
+
                     leaderContainer.innerHTML += `
-                        <div class="bg-slate-50 rounded-2xl p-6 text-center border border-slate-200 shadow-sm">
-                            <div class="w-16 h-16 bg-[#1b4d3e] text-white rounded-full mx-auto mb-3 flex items-center justify-center font-extrabold text-lg shadow-sm">${initials}</div>
+                        <div class="bg-slate-50 rounded-2xl p-6 text-center border border-slate-200 shadow-sm flex flex-col items-center">
+                            ${avatarHTML}
                             <h4 class="font-bold text-lg text-slate-900">${data.name}</h4>
                             <p class="text-[#1b4d3e] text-xs font-bold uppercase tracking-wider mt-1">${data.role}</p>
-                            <p class="text-slate-500 text-xs mt-3 font-medium">✉️ ${data.contact}</p>
+                            <p class="text-slate-500 text-xs mt-3 font-medium bg-white px-3 py-1.5 rounded-full border border-slate-200 shadow-2xs">✉️ ${data.contact}</p>
                         </div>
                     `;
                 });
