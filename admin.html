@@ -53,8 +53,8 @@
                         <textarea id="description" rows="3" required class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]"></textarea>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Image URLs (One link per line or separated by comma)</label>
-                        <textarea id="imageUrls" rows="3" placeholder="Paste multiple image links here..." class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]"></textarea>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Image URLs (One link per line or comma separated)</label>
+                        <textarea id="imageUrls" rows="3" placeholder="Paste image links here..." class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]"></textarea>
                     </div>
                     <div class="flex gap-2">
                         <button type="submit" id="save-post-btn" class="flex-1 bg-[#1b4d3e] hover:bg-[#14382d] text-white py-2.5 rounded-xl font-bold text-xs shadow-sm transition">Publish Work</button>
@@ -79,6 +79,10 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Designation / Role</label>
                         <input type="text" id="l-role" required placeholder="e.g. Executive Director" class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Photo URL (Optional)</label>
+                        <input type="text" id="l-photo" placeholder="Direct image link for member" class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Contact Info (Email/Phone)</label>
@@ -179,7 +183,7 @@
                             <p class="text-[10px] text-emerald-700 font-medium">${data.role}</p>
                         </div>
                         <div class="flex gap-1.5 flex-shrink-0">
-                            <button onclick="editLeader('${data.id}', '${data.serial || ''}', '${encodeURIComponent(data.name)}', '${encodeURIComponent(data.role)}', '${encodeURIComponent(data.contact)}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 text-[10px] font-bold rounded-lg transition">Edit</button>
+                            <button onclick="editLeader('${data.id}', '${data.serial || ''}', '${encodeURIComponent(data.name)}', '${encodeURIComponent(data.role)}', '${encodeURIComponent(data.photo || '')}', '${encodeURIComponent(data.contact)}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 text-[10px] font-bold rounded-lg transition">Edit</button>
                             <button onclick="deleteLeader('${data.id}')" class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-bold rounded-lg transition">Delete</button>
                         </div>
                     </div>
@@ -240,24 +244,26 @@
             const serial = Number(document.getElementById('l-serial').value) || 0;
             const name = document.getElementById('l-name').value;
             const role = document.getElementById('l-role').value;
+            const photo = document.getElementById('l-photo').value;
             const contact = document.getElementById('l-contact').value;
 
             if(id) {
-                await updateDoc(doc(db, "leaders", id), { serial, name, role, contact });
+                await updateDoc(doc(db, "leaders", id), { serial, name, role, photo, contact });
                 alert('Leader updated successfully!');
             } else {
-                await addDoc(collection(db, "leaders"), { serial, name, role, contact, createdAt: new Date() });
+                await addDoc(collection(db, "leaders"), { serial, name, role, photo, contact, createdAt: new Date() });
                 alert('Leader added successfully!');
             }
             resetLeaderForm();
             loadAdminData();
         });
 
-        window.editLeader = function(id, serial, name, role, contact) {
+        window.editLeader = function(id, serial, name, role, photo, contact) {
             document.getElementById('edit-leader-id').value = id;
             document.getElementById('l-serial').value = serial;
             document.getElementById('l-name').value = decodeURIComponent(name);
             document.getElementById('l-role').value = decodeURIComponent(role);
+            document.getElementById('l-photo').value = decodeURIComponent(photo);
             document.getElementById('l-contact').value = decodeURIComponent(contact);
             document.getElementById('leader-form-title').innerText = "Edit Leadership Member";
             document.getElementById('save-leader-btn').innerText = "Update Member";
