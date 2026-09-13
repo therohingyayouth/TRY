@@ -41,6 +41,10 @@
                 <form id="post-form" class="space-y-4">
                     <input type="hidden" id="edit-post-id">
                     <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Serial / Order Number</label>
+                        <input type="number" id="p-serial" placeholder="e.g. 1, 2, 3..." class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]">
+                    </div>
+                    <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Title</label>
                         <input type="text" id="title" required class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]">
                     </div>
@@ -64,6 +68,10 @@
                 <h3 id="leader-form-title" class="text-base font-extrabold text-slate-900 mb-4 pb-2 border-b">Add Leadership Member</h3>
                 <form id="leader-form" class="space-y-4">
                     <input type="hidden" id="edit-leader-id">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Serial / Order Number (1, 2, 3...)</label>
+                        <input type="number" id="l-serial" placeholder="e.g. 1 for Top" class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]">
+                    </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Full Name</label>
                         <input type="text" id="l-name" required class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]">
@@ -107,7 +115,7 @@
     <!-- Firebase Script & Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyBQVYDNmEC6d0lAP9IxQ-_WchFHN7vC6Mw",
@@ -124,7 +132,6 @@
         // Password Protection Logic
         window.verifyLogin = function() {
             const pass = document.getElementById('admin-pass').value;
-            // আপনার ইচ্ছেমতো পাসওয়ার্ড এখানে পরিবর্তন করতে পারেন (বর্তমানে: tryadmin123)
             if(pass === "tryadmin123") {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('admin-content').classList.remove('hidden');
@@ -139,18 +146,21 @@
             // Load Posts
             const postsContainer = document.getElementById('admin-posts-list');
             const postSnap = await getDocs(collection(db, "programs"));
-            postsContainer.innerHTML = postSnap.empty ? '<p class="text-xs text-slate-400">No works found.</p>' : '';
-            postSnap.forEach((d) => {
-                const data = d.data();
+            let posts = [];
+            postSnap.forEach((d) => posts.push({ id: d.id, ...d.data() }));
+            posts.sort((a, b) => (Number(a.serial) || 999) - (Number(b.serial) || 999));
+
+            postsContainer.innerHTML = posts.length === 0 ? '<p class="text-xs text-slate-400">No works found.</p>' : '';
+            posts.forEach((data) => {
                 postsContainer.innerHTML += `
                     <div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl border border-slate-200">
                         <div class="truncate pr-2">
-                            <h4 class="font-bold text-xs text-slate-900 truncate">${data.title}</h4>
-                            <p class="text-[10px] text-slate-500 truncate">${data.description}</p>
+                            <span class="text-[10px] font-bold bg-emerald-100 text-[#1b4d3e] px-1.5 py-0.5 rounded">#${data.serial || 0}</span>
+                            <h4 class="font-bold text-xs text-slate-900 truncate mt-1">${data.title}</h4>
                         </div>
                         <div class="flex gap-1.5 flex-shrink-0">
-                            <button onclick="editPost('${d.id}', '${encodeURIComponent(data.title)}', '${encodeURIComponent(data.description)}', '${encodeURIComponent(data.imageUrl || '')}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 text-[10px] font-bold rounded-lg transition">Edit</button>
-                            <button onclick="deletePost('${d.id}')" class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-bold rounded-lg transition">Delete</button>
+                            <button onclick="editPost('${data.id}', '${data.serial || ''}', '${encodeURIComponent(data.title)}', '${encodeURIComponent(data.description)}', '${encodeURIComponent(data.imageUrl || '')}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 text-[10px] font-bold rounded-lg transition">Edit</button>
+                            <button onclick="deletePost('${data.id}')" class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-bold rounded-lg transition">Delete</button>
                         </div>
                     </div>
                 `;
@@ -159,18 +169,22 @@
             // Load Leaders
             const leadersContainer = document.getElementById('admin-leaders-list');
             const leaderSnap = await getDocs(collection(db, "leaders"));
-            leadersContainer.innerHTML = leaderSnap.empty ? '<p class="text-xs text-slate-400">No leaders found.</p>' : '';
-            leaderSnap.forEach((d) => {
-                const data = d.data();
+            let leaders = [];
+            leaderSnap.forEach((d) => leaders.push({ id: d.id, ...d.data() }));
+            leaders.sort((a, b) => (Number(a.serial) || 999) - (Number(b.serial) || 999));
+
+            leadersContainer.innerHTML = leaders.length === 0 ? '<p class="text-xs text-slate-400">No leaders found.</p>' : '';
+            leaders.forEach((data) => {
                 leadersContainer.innerHTML += `
                     <div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl border border-slate-200">
                         <div class="truncate pr-2">
-                            <h4 class="font-bold text-xs text-slate-900">${data.name}</h4>
+                            <span class="text-[10px] font-bold bg-emerald-100 text-[#1b4d3e] px-1.5 py-0.5 rounded">#${data.serial || 0}</span>
+                            <h4 class="font-bold text-xs text-slate-900 mt-1">${data.name}</h4>
                             <p class="text-[10px] text-emerald-700 font-medium">${data.role}</p>
                         </div>
                         <div class="flex gap-1.5 flex-shrink-0">
-                            <button onclick="editLeader('${d.id}', '${encodeURIComponent(data.name)}', '${encodeURIComponent(data.role)}', '${encodeURIComponent(data.contact)}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 text-[10px] font-bold rounded-lg transition">Edit</button>
-                            <button onclick="deleteLeader('${d.id}')" class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-bold rounded-lg transition">Delete</button>
+                            <button onclick="editLeader('${data.id}', '${data.serial || ''}', '${encodeURIComponent(data.name)}', '${encodeURIComponent(data.role)}', '${encodeURIComponent(data.contact)}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 text-[10px] font-bold rounded-lg transition">Edit</button>
+                            <button onclick="deleteLeader('${data.id}')" class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-bold rounded-lg transition">Delete</button>
                         </div>
                     </div>
                 `;
@@ -182,23 +196,25 @@
         postForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('edit-post-id').value;
+            const serial = Number(document.getElementById('p-serial').value) || 0;
             const title = document.getElementById('title').value;
             const description = document.getElementById('description').value;
             const imageUrl = document.getElementById('imageUrl').value;
 
             if(id) {
-                await updateDoc(doc(db, "programs", id), { title, description, imageUrl });
+                await updateDoc(doc(db, "programs", id), { serial, title, description, imageUrl });
                 alert('Work updated successfully!');
             } else {
-                await addDoc(collection(db, "programs"), { title, description, imageUrl, createdAt: new Date() });
+                await addDoc(collection(db, "programs"), { serial, title, description, imageUrl, createdAt: new Date() });
                 alert('Work published successfully!');
             }
             resetPostForm();
             loadAdminData();
         });
 
-        window.editPost = function(id, title, desc, img) {
+        window.editPost = function(id, serial, title, desc, img) {
             document.getElementById('edit-post-id').value = id;
+            document.getElementById('p-serial').value = serial;
             document.getElementById('title').value = decodeURIComponent(title);
             document.getElementById('description').value = decodeURIComponent(desc);
             document.getElementById('imageUrl').value = decodeURIComponent(img);
@@ -227,23 +243,25 @@
         leaderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('edit-leader-id').value;
+            const serial = Number(document.getElementById('l-serial').value) || 0;
             const name = document.getElementById('l-name').value;
             const role = document.getElementById('l-role').value;
             const contact = document.getElementById('l-contact').value;
 
             if(id) {
-                await updateDoc(doc(db, "leaders", id), { name, role, contact });
+                await updateDoc(doc(db, "leaders", id), { serial, name, role, contact });
                 alert('Leader updated successfully!');
             } else {
-                await addDoc(collection(db, "leaders"), { name, role, contact, createdAt: new Date() });
+                await addDoc(collection(db, "leaders"), { serial, name, role, contact, createdAt: new Date() });
                 alert('Leader added successfully!');
             }
             resetLeaderForm();
             loadAdminData();
         });
 
-        window.editLeader = function(id, name, role, contact) {
+        window.editLeader = function(id, serial, name, role, contact) {
             document.getElementById('edit-leader-id').value = id;
+            document.getElementById('l-serial').value = serial;
             document.getElementById('l-name').value = decodeURIComponent(name);
             document.getElementById('l-role').value = decodeURIComponent(role);
             document.getElementById('l-contact').value = decodeURIComponent(contact);
