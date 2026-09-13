@@ -53,8 +53,8 @@
                         <textarea id="description" rows="3" required class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]"></textarea>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Image URL (Optional)</label>
-                        <input type="url" id="imageUrl" placeholder="Direct image link" class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Image URLs (One link per line or separated by comma)</label>
+                        <textarea id="imageUrls" rows="3" placeholder="Paste multiple image links here..." class="w-full p-2.5 text-sm border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1b4d3e]"></textarea>
                     </div>
                     <div class="flex gap-2">
                         <button type="submit" id="save-post-btn" class="flex-1 bg-[#1b4d3e] hover:bg-[#14382d] text-white py-2.5 rounded-xl font-bold text-xs shadow-sm transition">Publish Work</button>
@@ -129,7 +129,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Password Protection Logic
         window.verifyLogin = function() {
             const pass = document.getElementById('admin-pass').value;
             if(pass === "tryadmin123") {
@@ -141,9 +140,7 @@
             }
         }
 
-        // Load Data in Admin Panel
         async function loadAdminData() {
-            // Load Posts
             const postsContainer = document.getElementById('admin-posts-list');
             const postSnap = await getDocs(collection(db, "programs"));
             let posts = [];
@@ -159,14 +156,13 @@
                             <h4 class="font-bold text-xs text-slate-900 truncate mt-1">${data.title}</h4>
                         </div>
                         <div class="flex gap-1.5 flex-shrink-0">
-                            <button onclick="editPost('${data.id}', '${data.serial || ''}', '${encodeURIComponent(data.title)}', '${encodeURIComponent(data.description)}', '${encodeURIComponent(data.imageUrl || '')}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 text-[10px] font-bold rounded-lg transition">Edit</button>
+                            <button onclick="editPost('${data.id}', '${data.serial || ''}', '${encodeURIComponent(data.title)}', '${encodeURIComponent(data.description)}', '${encodeURIComponent(data.imageUrls || data.imageUrl || '')}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 text-[10px] font-bold rounded-lg transition">Edit</button>
                             <button onclick="deletePost('${data.id}')" class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-bold rounded-lg transition">Delete</button>
                         </div>
                     </div>
                 `;
             });
 
-            // Load Leaders
             const leadersContainer = document.getElementById('admin-leaders-list');
             const leaderSnap = await getDocs(collection(db, "leaders"));
             let leaders = [];
@@ -191,7 +187,6 @@
             });
         }
 
-        // Post Submit / Update Handler
         const postForm = document.getElementById('post-form');
         postForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -199,25 +194,25 @@
             const serial = Number(document.getElementById('p-serial').value) || 0;
             const title = document.getElementById('title').value;
             const description = document.getElementById('description').value;
-            const imageUrl = document.getElementById('imageUrl').value;
+            const imageUrls = document.getElementById('imageUrls').value;
 
             if(id) {
-                await updateDoc(doc(db, "programs", id), { serial, title, description, imageUrl });
+                await updateDoc(doc(db, "programs", id), { serial, title, description, imageUrls });
                 alert('Work updated successfully!');
             } else {
-                await addDoc(collection(db, "programs"), { serial, title, description, imageUrl, createdAt: new Date() });
+                await addDoc(collection(db, "programs"), { serial, title, description, imageUrls, createdAt: new Date() });
                 alert('Work published successfully!');
             }
             resetPostForm();
             loadAdminData();
         });
 
-        window.editPost = function(id, serial, title, desc, img) {
+        window.editPost = function(id, serial, title, desc, imgs) {
             document.getElementById('edit-post-id').value = id;
             document.getElementById('p-serial').value = serial;
             document.getElementById('title').value = decodeURIComponent(title);
             document.getElementById('description').value = decodeURIComponent(desc);
-            document.getElementById('imageUrl').value = decodeURIComponent(img);
+            document.getElementById('imageUrls').value = decodeURIComponent(imgs);
             document.getElementById('form-title').innerText = "Edit Program / Work";
             document.getElementById('save-post-btn').innerText = "Update Work";
             document.getElementById('cancel-post-btn').classList.remove('hidden');
@@ -238,7 +233,6 @@
             }
         }
 
-        // Leader Submit / Update Handler
         const leaderForm = document.getElementById('leader-form');
         leaderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
