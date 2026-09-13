@@ -183,9 +183,25 @@
             } else {
                 postContainer.innerHTML = '';
                 posts.forEach((data) => {
+                    // Extract multiple image URLs (split by newline, comma, or fallback to single imageUrl)
+                    let rawLinks = data.imageUrls || data.imageUrl || "";
+                    let links = rawLinks.split(/[\n,]+/).map(l => l.trim()).filter(l => l.length > 0);
+
+                    let imageHTML = "";
+                    if(links.length === 1) {
+                        imageHTML = `<img src="${links[0]}" class="w-full h-48 object-cover">`;
+                    } else if(links.length > 1) {
+                        let gridCols = links.length === 2 ? 'grid-cols-2' : 'grid-cols-2';
+                        imageHTML = `<div class="grid ${gridCols} gap-1 p-2 bg-slate-100">`;
+                        links.forEach(link => {
+                            imageHTML += `<img src="${link}" class="w-full h-32 object-cover rounded-lg">`;
+                        });
+                        imageHTML += `</div>`;
+                    }
+
                     postContainer.innerHTML += `
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition flex flex-col">
-                            ${data.imageUrl ? `<img src="${data.imageUrl}" class="w-full h-48 object-cover">` : ''}
+                            ${imageHTML}
                             <div class="p-5 flex flex-col flex-grow">
                                 <h4 class="font-bold text-base text-slate-900 mb-2">${data.title}</h4>
                                 <p class="text-slate-600 text-xs md:text-sm leading-relaxed">${data.description}</p>
